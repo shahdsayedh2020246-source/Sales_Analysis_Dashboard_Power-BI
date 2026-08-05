@@ -39,3 +39,63 @@ The datasets follow a classic **Star Schema / Snowflake Schema** data model arch
        ┌───────────────┐
        │    Regions    │
        └───────────────┘
+📖 Data Dictionary
+1. Customers.xlsx
+Contains client identification and descriptive attribute fields.
+
+Column Name	Data Type	Key Type	Sample / Description
+CustomerID	Integer	Primary Key	Unique integer identifier for each customer
+StoreID	Float / Null	Foreign Key	Store identifier if applicable
+AccountNumber	String	Unique Code	Account reference number (e.g., AW00029484)
+FirstName	String	Feature	Customer's first name
+LastName	String	Feature	Customer's last name
+Title	String	Feature	Honorific title (e.g., Mr., Ms.)
+2. Products.xlsx
+Detailed product hierarchy, categorization, pricing structure, and color variations.
+
+Column Name	Data Type	Key Type	Sample / Description
+ProductID	Integer	Primary Key	Unique SKU identifier
+ProductName	String	Feature	Full descriptive name of the product
+ProductCategoryID	Integer	ID	Numerical ID for main product category
+Product Category	String	Feature	Main category (e.g., Bikes, Components, Accessories)
+Product Subcategory	String	Feature	Granular subcategory (e.g., Road Frames, Mountain Bikes)
+ProductSubcategoryID	Integer	ID	Numerical ID for product subcategory
+Color	String	Feature	Color variant (e.g., Black, Red, Yellow)
+StandardCost	Float	Metric	Base manufacturing / acquisition cost
+ListPrice	Float	Metric	Catalog retail selling price
+SellStartDate	DateTime / Text	Feature	Date when product was introduced to market
+SellEndDate	DateTime / Null	Feature	End of life date (if discontinued)
+3. Regions.xlsx
+Geographical metadata mapped to regional territories.
+
+Column Name	Data Type	Key Type	Sample / Description
+TerritoryID	Integer	Primary Key	Numerical territory code
+Region Name	String	Feature	Local region name (e.g., Northwest, Northeast, United Kingdom)
+CountryRegionCode	String	Feature	ISO country code (e.g., US, GB, DE, FR, AU)
+Region Group	String	Feature	Continental group (e.g., North America, Europe, Pacific)
+4. Sales.xlsx (Fact Data)
+Contains transactional line items separated across four annual sheets (2011, 2012, 2013, 2014).
+
+Column Name	Data Type	Key Type	Sample / Description
+OrderDate	DateTime	Dimension	Transaction date
+CustomerID	Integer	Foreign Key	References Customers.CustomerID
+TerritoryID	Integer	Foreign Key	References Regions.TerritoryID
+SalesOrderID	Integer	Transaction ID	Header order ID
+CarrierTrackingNumber	String / Null	Metric	Shipment tracking number
+OrderQty	Integer	Measure	Quantity of items purchased in line item
+ProductID	Integer	Foreign Key	References Products.ProductID
+SpecialOfferID	Integer	Feature	Promotion / discount campaign ID
+UnitPriceDiscount	Float	Measure	Applied discount monetary value
+ModifiedDate	DateTime	System	Date record was last updated
+⚙️ ETL & Data Preparation Guidelines
+When importing these datasets into Power BI or performing ETL processing:
+
+Table Union (Sales Sheets): Combine/Append all 4 sheets (2011, 2012, 2013, 2014) in Sales.xlsx into a single consolidated FactSales table.
+
+Data Cleaning & Null Handling:
+
+CarrierTrackingNumber contains null values for non-shipped or digital items.
+
+Null values in SellEndDate indicate active catalog items.
+
+Relationships Setup: Ensure explicit One-to-Many (1:N) directional filters flow from Dimension tables (Customers, Products, Regions) to FactSales.
