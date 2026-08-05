@@ -104,3 +104,8 @@ Synthesized business insights and data-driven strategy cards.
 ├── row_data/                       # Raw Datasets
 ├── Dashboard1.png                  # Overview Page Screenshot
 ├── Dashboard2.png                  # Product Performance Screenshot
+├── Dashboard3.png                  # Regional Performance Screenshot
+├── Home Page.jpg                   # Navigation Landing Page Screenshot
+├── Insights & Recommendations.jpg  # Final Executive Summary Dashboard
+├── Project.pbix                    # Power BI Project File
+└── README.md                       # Project Documentation
