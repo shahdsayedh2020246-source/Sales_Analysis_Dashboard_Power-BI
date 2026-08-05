@@ -1,21 +1,23 @@
-# Raw Data Documentation
+# 📁 Raw Data Documentation (`row_data`)
 
-This folder contains the source datasets used for the Sales Analysis Power BI project.
-
----
-
-## Datasets Overview
-
-* **Customers.xlsx**: Contains customer demographics and account details (19,119 records).
-* **Products.xlsx**: Contains product catalog, pricing, cost, and categories (295 records).
-* **Regions.xlsx**: Maps territory IDs to country codes and regional groups (10 records).
-* **Sales.xlsx**: Transactional sales line items split across 4 yearly sheets: 2011, 2012, 2013, and 2014 (121,318 total records).
+This directory contains the source datasets used to build the **Sales Analysis & Business Intelligence Dashboard**. The raw data originates from enterprise transactional tables containing customer, product, regional, and sales history records.
 
 ---
 
-## Data Schema & Relationships
+## 📌 Datasets Overview
 
-The dataset is structured as a **Star Schema**:
+| File Name | Sheet Name(s) | Total Records | Total Columns | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`Customers.xlsx`** | `Sheet1` | 19,119 | 6 | `CustomerID` | Demographic details and contact information of registered clients. |
+| **`Products.xlsx`** | `Sheet2` | 295 | 11 | `ProductID` | Catalog of items, categories, subcategories, cost, and pricing details. |
+| **`Regions.xlsx`** | `Sheet1` | 10 | 4 | `TerritoryID` | Geographical mapping of sales territories, country codes, and regions. |
+| **`Sales.xlsx`** | `2011`, `2012`, `2013`, `2014` | 121,318 | 10 | Composite / Line Item | Historical transactional sales line items across 4 calendar years. |
+
+---
+
+## 🗺️ Data Schema & Relationships
+
+The dataset is structured as a **Star Schema** to optimize reporting and relational data modeling in Power BI:
 
 ```text
        ┌───────────────┐
@@ -31,76 +33,49 @@ The dataset is structured as a **Star Schema**:
        ┌───────────────┐
        │    Regions    │
        └───────────────┘
-Data Dictionary
-1. Customers.xlsx (Sheet1)
-CustomerID: Primary key for unique customer identifier.
+📖 Data Dictionary
+👥 1. Customers (Customers.xlsx)
+Column Name	Data Type	Key Type	Description
+CustomerID	Integer	Primary Key	Unique integer identifier for each customer
+StoreID	Float / Null	Foreign Key	Store identifier if applicable
+AccountNumber	String	Unique Code	Account reference number (e.g., AW00029484)
+FirstName	String	Feature	Customer's first name
+LastName	String	Feature	Customer's last name
+Title	String	Feature	Honorific title (e.g., Mr., Ms.)
+📦 2. Products (Products.xlsx)
+Column Name	Data Type	Key Type	Description
+ProductID	Integer	Primary Key	Unique SKU identifier
+ProductName	String	Feature	Full descriptive name of the product
+ProductCategoryID	Integer	ID	Numerical ID for main product category
+Product Category	String	Feature	Main category (Bikes, Components, Clothing, Accessories)
+Product Subcategory	String	Feature	Granular subcategory (e.g., Road Frames, Mountain Bikes)
+ProductSubcategoryID	Integer	ID	Numerical ID for product subcategory
+Color	String	Feature	Color variant (e.g., Black, Red, Yellow)
+StandardCost	Float	Metric	Base manufacturing / acquisition cost
+ListPrice	Float	Metric	Catalog retail selling price
+SellStartDate	DateTime	Feature	Date when product was introduced to market
+SellEndDate	DateTime / Null	Feature	End of life date (if discontinued)
+🌍 3. Regions (Regions.xlsx)
+Column Name	Data Type	Key Type	Description
+TerritoryID	Integer	Primary Key	Numerical territory code
+Region Name	String	Feature	Local region name (e.g., Northwest, United Kingdom)
+CountryRegionCode	String	Feature	ISO 2-letter country code (US, GB, DE, FR, AU)
+Region Group	String	Feature	Continental group (North America, Europe, Pacific)
+🛒 4. Sales (Sales.xlsx)
+Column Name	Data Type	Key Type	Description
+OrderDate	DateTime	Dimension	Transaction date
+CustomerID	Integer	Foreign Key	References Customers.CustomerID
+TerritoryID	Integer	Foreign Key	References Regions.TerritoryID
+SalesOrderID	Integer	Transaction ID	Sales order header identifier
+CarrierTrackingNumber	String / Null	Metric	Shipment carrier tracking ID
+OrderQty	Integer	Measure	Quantity of units purchased in line item
+ProductID	Integer	Foreign Key	References Products.ProductID
+SpecialOfferID	Integer	Feature	Applied promotion code
+UnitPriceDiscount	Float	Measure	Applied discount monetary value
+ModifiedDate	DateTime	System	Date record was last updated
+🛠️ ETL & Data Transformation Guidelines
+Table Union (Sales Sheets): Combine all 4 annual sheets (2011, 2012, 2013, 2014) in Sales.xlsx into a single consolidated FactSales table.
 
-StoreID: Store identifier code.
+Data Cleaning: Handle null values in CarrierTrackingNumber (non-shipped/digital items) and SellEndDate (active catalog products).
 
-AccountNumber: Unique customer account number.
-
-FirstName: Customer first name.
-
-LastName: Customer last name.
-
-Title: Customer title or honorific.
-
-2. Products.xlsx (Sheet2)
-ProductID: Primary key for unique product identifier.
-
-ProductName: Full name and description of product.
-
-ProductCategoryID: Numeric ID for main category.
-
-Product Category: Main category (Bikes, Components, Clothing, Accessories).
-
-Product Subcategory: Detailed product subcategory name.
-
-ProductSubcategoryID: Numeric ID for subcategory.
-
-Color: Product color variant.
-
-StandardCost: Manufacturing or unit acquisition cost.
-
-ListPrice: Retail catalog listing price.
-
-SellStartDate: Date product became active in catalog.
-
-SellEndDate: Date product was discontinued.
-
-3. Regions.xlsx (Sheet1)
-TerritoryID: Primary key for unique territory identifier.
-
-Region Name: Name of territory or geographic region.
-
-CountryRegionCode: ISO 2-letter country code (US, GB, DE, FR, AU).
-
-Region Group: Major regional group (North America, Europe, Pacific).
-
-4. Sales.xlsx (Sheets: 2011, 2012, 2013, 2014)
-OrderDate: Date transaction took place.
-
-CustomerID: Foreign key referencing Customers table.
-
-TerritoryID: Foreign key referencing Regions table.
-
-SalesOrderID: Sales order header identifier.
-
-CarrierTrackingNumber: Shipment carrier tracking ID.
-
-OrderQty: Number of units purchased.
-
-ProductID: Foreign key referencing Products table.
-
-SpecialOfferID: Applied promotion code.
-
-UnitPriceDiscount: Discount amount applied per unit.
-
-ModifiedDate: Date record was last updated.
-
-ETL Requirements
-Append/Union all 4 sheets in Sales.xlsx into a single consolidated Fact table.
-
-Establish 1-to-Many single-direction relationships from Dimension tables to the Fact table.
-
-Clean missing values in CarrierTrackingNumber and SellEndDate as needed.
+Relationships Setup: Configure single-direction 1-to-Many (1:N) relationships running from Dimension tables (Customers, Products, Regions) to FactSales.
