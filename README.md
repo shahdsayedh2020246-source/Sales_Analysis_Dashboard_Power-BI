@@ -22,7 +22,7 @@ The dashboard is structured into an intuitive multi-page layout designed for sea
 ### 🏠 0. Home Page Layout
 The navigation hub allows stakeholders to jump directly to specific analysis pages.
 
-![Home Page](Home%20Page.jpg)
+![Home Page](Home%20Page.png)
 
 ---
 
@@ -65,7 +65,7 @@ Geographic analysis evaluating sales distribution across countries and regional 
 ### 💡 4. Insights & Strategic Recommendations
 Synthesized business insights and data-driven strategy cards.
 
-![Insights and Recommendations](Insights%20%26%20Recommendations.jpg)
+![Insights and Recommendations](Insights%20%26%20Recommendations.png)
 
 ---
 
@@ -105,7 +105,7 @@ Synthesized business insights and data-driven strategy cards.
 ├── Dashboard1.png                  # Overview Page Screenshot
 ├── Dashboard2.png                  # Product Performance Screenshot
 ├── Dashboard3.png                  # Regional Performance Screenshot
-├── Home Page.jpg                   # Navigation Landing Page Screenshot
-├── Insights & Recommendations.jpg  # Final Executive Summary Dashboard
+├── Home Page.png                   # Navigation Landing Page Screenshot
+├── Insights & Recommendations.png  # Final Executive Summary Dashboard
 ├── Project.pbix                    # Power BI Project File
 └── README.md                       # Project Documentation
