@@ -22,14 +22,14 @@ The dashboard is structured into an intuitive multi-page layout designed for sea
 ### 🏠 0. Home Page Layout
 The navigation hub allows stakeholders to jump directly to specific analysis pages.
 
-![Home Page](Home%20Page.png)
+<img src="./Home%20Page.png" width="100%" alt="Home Page">
 
 ---
 
 ### 📈 1. Overview & Executive Summary
 High-level view of core KPIs, overall revenue trends, and category distribution.
 
-![Overview Dashboard](Dashboard1.png)
+<img src="./Dahboard1.png" width="100%" alt="Overview Dashboard">
 
 * **Key Insights:**
   * **Product Share:** Bikes drive **86.14%** of revenue, followed by Accessories (**10.03%**).
@@ -41,7 +41,7 @@ High-level view of core KPIs, overall revenue trends, and category distribution.
 ### 🚲 2. Sales & Product Performance
 In-depth evaluation of sales metrics, quantities, discounts, and product-level granularity.
 
-![Sales and Product Performance](Dashboard2.png)
+<img src="./Dashboard2.png" width="100%" alt="Sales and Product Performance">
 
 * **Key Insights:**
   * **Total Quantity Sold:** `1,176 units` across all product lines.
@@ -54,7 +54,7 @@ In-depth evaluation of sales metrics, quantities, discounts, and product-level g
 ### 🌍 3. Regional & Geographic Performance
 Geographic analysis evaluating sales distribution across countries and regional groups.
 
-![Regional Performance](Dashboard3.png)
+<img src="./Dashboard3.png" width="100%" alt="Regional Performance">
 
 * **Key Insights:**
   * **Regional Share:** Europe leads with **60.76%** of total revenue, followed by North America (**27.78%**) and Pacific (**11.45%**).
@@ -65,7 +65,7 @@ Geographic analysis evaluating sales distribution across countries and regional 
 ### 💡 4. Insights & Strategic Recommendations
 Synthesized business insights and data-driven strategy cards.
 
-![Insights and Recommendations](Insights%20%26%20Recommendations.png)
+<img src="./Insights%20%26%20Recommendations.png" width="100%" alt="Insights and Recommendations">
 
 ---
 
@@ -102,7 +102,7 @@ Synthesized business insights and data-driven strategy cards.
 
 ```text
 ├── row_data/                       # Raw Datasets
-├── Dashboard1.png                  # Overview Page Screenshot
+├── Dahboard1.png                   # Overview Page Screenshot
 ├── Dashboard2.png                  # Product Performance Screenshot
 ├── Dashboard3.png                  # Regional Performance Screenshot
 ├── Home Page.png                   # Navigation Landing Page Screenshot
