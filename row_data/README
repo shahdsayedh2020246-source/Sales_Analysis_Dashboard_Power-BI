@@ -1,1 +1,41 @@
-GO HERE
+# 📁 Raw Data Documentation (`row_data`)
+
+This directory contains the source datasets used to build the **Sales Analysis & Business Intelligence Dashboard**. The raw data originates from enterprise transactional tables containing customer, product, regional, and sales history records.
+
+---
+
+## 📌 Datasets Overview
+
+| File Name | Sheet Name(s) | Total Records | Columns | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`Customers.xlsx`** | `Sheet1` | 19,119 | 6 | `CustomerID` | Demographic details and contact information of registered clients. |
+| **`Products.xlsx`** | `Sheet2` | 295 | 11 | `ProductID` | Catalog of items, categories, subcategories, cost, and pricing details. |
+| **`Regions.xlsx`** | `Sheet1` | 10 | 4 | `TerritoryID` | Geographical mapping of sales territories, country codes, and regions. |
+| **`Sales.xlsx`** | `2011`, `2012`, `2013`, `2014` | 121,318 | 10 | Composite / Line Item | Historical transactional sales line items across 4 calendar years. |
+
+---
+
+## 🔗 Data Schema & Relationships
+
+The datasets follow a classic **Star Schema / Snowflake Schema** data model architecture:
+
+* **Fact Table:** `Sales.xlsx` (Appended across all 4 yearly sheets)
+* **Dimension Tables:**
+  * `Customers.xlsx` linked via **`CustomerID`**
+  * `Products.xlsx` linked via **`ProductID`**
+  * `Regions.xlsx` linked via **`TerritoryID`**
+
+```text
+       ┌───────────────┐
+       │   Customers   │
+       └───────┬───────┘
+               │ (1:N)
+               ▼
+┌─────────────────────────────┐         ┌───────────────┐
+│         Sales (Fact)        │◄──(N:1)─┤   Products    │
+└──────────────┬──────────────┘         └───────────────┘
+               │ (N:1)
+               ▼
+       ┌───────────────┐
+       │    Regions    │
+       └───────────────┘
